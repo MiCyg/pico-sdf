@@ -19,8 +19,4 @@ echo "alias get_pico='. /path/to/pico_env.sh'" >> ~/.zshrc
 source ~/.bashrc
 ```
 
-Now, when you want to use pico framework use command below, next type `pico.sh help` for additional information about framework.
-
-```bash
-get_pico
-```
+Now, when you want to use pico framework use command `get_pico`. Next, type `pico.sh help` for additional information about framework options and usage.
