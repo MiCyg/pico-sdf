@@ -12,7 +12,7 @@ Scripts should be in this same folder as pico-sdk, example tree:
 	├── pico.sh
 	└── pico_env.sh
 
-You should edit .bashrc and optional .zshrc use commands:
+First thing you must do is set path in `pico_env.sh` script. Next, you should edit `.bashrc` and optional `.zshrc` use commands:
 ```bash
 echo "alias get_pico='. /path/to/pico_env.sh'" >> ~/.bashrc
 echo "alias get_pico='. /path/to/pico_env.sh'" >> ~/.zshrc

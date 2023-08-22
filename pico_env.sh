@@ -1,6 +1,7 @@
 #!/bin/bash
 
-pico_path=$(realpath "$0")
+# pico_path=$(realpath "$0")
+pico_path="/path/to/pico-framework"
 echo "Add PICO_SDK_PATH, PICO_EXAMPLES_PATH, PICO_EXTRAS_PATH, PICO_PLAYGROUND_PATH to env"
 export PICO_SDK_PATH=${pico_path}/pico-sdk
 export PICO_EXAMPLES_PATH=${pico_path}/pico-examples
