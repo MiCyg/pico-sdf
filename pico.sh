@@ -137,52 +137,52 @@ pico_create_project(){
 		cp $PICO_SDK_PATH/external/pico_sdk_import.cmake ./
 
 		# create CMakeLists.txt file
-		echo "cmake_minimum_required(VERSION 3.13)"		 > CMakeLists.txt
-		echo "include(pico_sdk_import.cmake)" 			>> CMakeLists.txt
-		echo "project($projectName C CXX ASM)" 			>> CMakeLists.txt
-		echo "set(CMAKE_C_STANDARD 11)" 				>> CMakeLists.txt
-		echo "" 										>> CMakeLists.txt
-		echo "set(CMAKE_CXX_STANDARD 17)" 				>> CMakeLists.txt
-		echo "pico_sdk_init()" 							>> CMakeLists.txt
-		echo "add_executable(main" 						>> CMakeLists.txt
-		echo "main.c" 									>> CMakeLists.txt
-		echo ")" 										>> CMakeLists.txt
-		echo "" 										>> CMakeLists.txt
-		echo "pico_enable_stdio_usb(main 1)" 			>> CMakeLists.txt
-		echo "pico_enable_stdio_uart(main 1)" 			>> CMakeLists.txt
-		echo "pico_add_extra_outputs(main)" 			>> CMakeLists.txt
-		echo "target_link_libraries(main pico_stdlib)" 	>> CMakeLists.txt
+		echo "cmake_minimum_required(VERSION 3.13)"     > CMakeLists.txt
+		echo "include(pico_sdk_import.cmake)"          >> CMakeLists.txt
+		echo "project($projectName C CXX ASM)"         >> CMakeLists.txt
+		echo "set(CMAKE_C_STANDARD 11)"                >> CMakeLists.txt
+		echo ""                                        >> CMakeLists.txt
+		echo "set(CMAKE_CXX_STANDARD 17)"              >> CMakeLists.txt
+		echo "pico_sdk_init()"                         >> CMakeLists.txt
+		echo "add_executable(main"                     >> CMakeLists.txt
+		echo "main.c"                                  >> CMakeLists.txt
+		echo ")"                                       >> CMakeLists.txt
+		echo ""                                        >> CMakeLists.txt
+		echo "pico_enable_stdio_usb(main 1)"           >> CMakeLists.txt
+		echo "pico_enable_stdio_uart(main 1)"          >> CMakeLists.txt
+		echo "pico_add_extra_outputs(main)"            >> CMakeLists.txt
+		echo "target_link_libraries(main pico_stdlib)" >> CMakeLists.txt
 
 
 		# create main.c file
-		echo "#include \"pico/stdlib.h\""	 > main.c
-		echo ""								>> main.c
-		echo "int main() {"					>> main.c
-		echo "	stdio_init_all();"			>> main.c
-		echo ""								>> main.c
-		echo "	while(1);"					>> main.c
-		echo "}"							>> main.c
+		echo "#include \"pico/stdlib.h\""     > main.c
+		echo ""                              >> main.c
+		echo "int main() {"                  >> main.c
+		echo "	stdio_init_all();"           >> main.c
+		echo ""                              >> main.c
+		echo "	while(1);"                   >> main.c
+		echo "}"                             >> main.c
 
 		# create file for vscode 
 		mkdir -p .vscode
-		echo "{"														 > .vscode/c_cpp_properties.json
-		echo "    \"configurations\": ["								>> .vscode/c_cpp_properties.json
-		echo "        {"												>> .vscode/c_cpp_properties.json
-		echo "            \"name\": \"Linux\","							>> .vscode/c_cpp_properties.json
-		echo "            \"includePath\": ["							>> .vscode/c_cpp_properties.json
-		echo "                \"\${workspaceFolder}/**\","				>> .vscode/c_cpp_properties.json
+		echo "{"                                                        > .vscode/c_cpp_properties.json
+		echo "    \"configurations\": ["                               >> .vscode/c_cpp_properties.json
+		echo "        {"                                               >> .vscode/c_cpp_properties.json
+		echo "            \"name\": \"Linux\","                        >> .vscode/c_cpp_properties.json
+		echo "            \"includePath\": ["                          >> .vscode/c_cpp_properties.json
+		echo "                \"\${workspaceFolder}/**\","             >> .vscode/c_cpp_properties.json
 		_path=$PICO_SDK_PATH
-		echo "                \"$_path/**\","				 			>> .vscode/c_cpp_properties.json
+		echo "                \"$_path/**\","                          >> .vscode/c_cpp_properties.json
 		_path=$PICO_EXTRAS_PATH
-		echo "                \"$_path/**\","				 			>> .vscode/c_cpp_properties.json
+		echo "                \"$_path/**\","                          >> .vscode/c_cpp_properties.json
 		_path=$PICO_PLAYGROUND_PATH
-		echo "                \"$_path/**\","				 			>> .vscode/c_cpp_properties.json
-		echo "            ],"											>> .vscode/c_cpp_properties.json
-		echo "            \"intelliSenseMode\": \"windows-msvc-x64\","	>> .vscode/c_cpp_properties.json
-		echo "        }"												>> .vscode/c_cpp_properties.json
-		echo "    ],"													>> .vscode/c_cpp_properties.json
-		echo "    \"version\": 4"										>> .vscode/c_cpp_properties.json
-		echo "}"														>> .vscode/c_cpp_properties.json
+		echo "                \"$_path/**\","                          >> .vscode/c_cpp_properties.json
+		echo "            ],"                                          >> .vscode/c_cpp_properties.json
+		echo "            \"intelliSenseMode\": \"windows-msvc-x64\"," >> .vscode/c_cpp_properties.json
+		echo "        }"                                               >> .vscode/c_cpp_properties.json
+		echo "    ],"                                                  >> .vscode/c_cpp_properties.json
+		echo "    \"version\": 4"                                      >> .vscode/c_cpp_properties.json
+		echo "}"                                                       >> .vscode/c_cpp_properties.json
 
 
 
