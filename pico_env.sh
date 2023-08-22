@@ -7,7 +7,7 @@ export PICO_EXAMPLES_PATH=${pico_path}/pico-examples
 export PICO_EXTRAS_PATH=${pico_path}/pico-extras
 export PICO_PLAYGROUND_PATH=${pico_path}/pico-playground
 
-echo "Add /home/mi/rp/pico to PATH"
+echo "Add $pico_path to PATH"
 export PATH="${pico_path}:$PATH"
 
 echo -e "\033[0;35mEnvironment is ready. build your project using 'pico.sh build'.\033[0m"
