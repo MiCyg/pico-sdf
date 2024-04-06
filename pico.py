@@ -37,7 +37,7 @@ def pico_swd_flash():
 	print(COLOR, 'Flash program', NC)
 	findFilename = [elfName for elfName in os.listdir(CURRENTPATH/BUILDDIR) if elfName.endswith('.elf')]
 	if len(findFilename) == 1:
-		command = 'openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c \"adapter speed 5000\" -c \"program %s/%s verify reset; exit;\"'%(CURRENTPATH/BUILDDIR, findFilename[0])
+		command = 'sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c \"adapter speed 5000\" -c \"program %s/%s verify reset; exit;\"'%(CURRENTPATH/BUILDDIR, findFilename[0])
 		return os.system(command)
 	elif len(findFilename) == 0:
 		print(COLOR, 'Cannot find .elf file', NC)
