@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 import serial.tools.list_ports
 import argparse
+import serial.tools.miniterm
 
 
 COLOR='\033[0;35m'
@@ -36,7 +37,7 @@ def pico_swd_flash():
 	print(COLOR, 'Flash program', NC)
 	findFilename = [elfName for elfName in os.listdir(CURRENTPATH/BUILDDIR) if elfName.endswith('.elf')]
 	if len(findFilename) == 1:
-		command = 'sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c \"adapter speed 5000\" -c \"program %s/%s verify reset exit\"'%(CURRENTPATH/BUILDDIR, findFilename[0])
+		command = 'openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c \"adapter speed 5000\" -c \"program %s/%s verify reset; exit;\"'%(CURRENTPATH/BUILDDIR, findFilename[0])
 		return os.system(command)
 	elif len(findFilename) == 0:
 		print(COLOR, 'Cannot find .elf file', NC)
@@ -46,7 +47,8 @@ def pico_swd_flash():
 		return -2
 
 def pico_monitor():
-	print(COLOR, 'pico monitor.', NC)
+	# print(COLOR, 'pico monitor.', NC)
+	
 	ports = serial.tools.list_ports.comports()
 	devicePath = None
 	for port, desc, hwid in sorted(ports):
@@ -54,11 +56,45 @@ def pico_monitor():
 			devicePath = port
 
 	if not devicePath:
-		print('Can not find picoprobe path.')
-		return -1
-	
-	print(COLOR, 'START MINICOM!', NC)
-	return os.system('minicom --device %s --baudrate 115200'%devicePath)
+		print('Can not find picoprobe path')
+
+		devicePath = serial.tools.miniterm.ask_for_port()
+		if not devicePath:
+			print("Port is not choosen.")
+			return -1
+
+	ser = serial.Serial(port=devicePath, baudrate=115200)
+	miniterm = serial.tools.miniterm.Miniterm(
+		serial_instance=ser,
+		echo=False,
+		filters=[]
+		)
+
+	miniterm.exit_character = chr(0x1d) # GS/CTRL+]
+	miniterm.menu_character = chr(0x14) # Menu: CTRL+T
+	miniterm.raw = False
+
+	miniterm.set_rx_encoding('UTF-8')
+	miniterm.set_tx_encoding('UTF-8')
+
+	# if not args.quiet:
+	print(COLOR, '--- Miniterm on {p.name}  {p.baudrate},{p.bytesize},{p.parity},{p.stopbits} ---'.format(p=miniterm.serial), NC)
+	print(COLOR, '--- Quit: {} | Menu: {} | Help: {} followed by {} ---'.format(
+		serial.tools.miniterm.key_description(miniterm.exit_character),
+		serial.tools.miniterm.key_description(miniterm.menu_character),
+		serial.tools.miniterm.key_description(miniterm.menu_character),
+		serial.tools.miniterm.key_description('\x08')), NC)
+
+	miniterm.start()
+	try:
+		miniterm.join(True)
+	except KeyboardInterrupt:
+		pass
+
+	print(COLOR, '\n--- exit ---', NC)
+	miniterm.join()
+	miniterm.close()
+
 
 
 def pico_create_project():
@@ -73,7 +109,6 @@ def runflow(clear, build, flash, monitor):
 		if err != 0:
 			return err
 
-	
 	if (build):
 		err = pico_build()
 		if err != 0:
