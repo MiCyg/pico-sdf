@@ -10,5 +10,5 @@ export PICO_PLAYGROUND_PATH=${pico_path}/pico-playground
 echo "Add $pico_path to PATH"
 export PATH="${pico_path}:$PATH"
 
-echo -e "\033[0;35mEnvironment is ready. build your project using 'pico.sh build'.\033[0m"
+echo -e "\033[0;35mEnvironment is ready. build your project using 'pico.py build'.\033[0m"
 
