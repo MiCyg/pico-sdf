@@ -2,15 +2,14 @@
 Raspberry pi pico framework for build, programming and monitor.
 
 # Configure
-Scripts should be in this same folder as pico-sdk, example tree:
+Project should be in this same folder as pico-sdk, example tree:
 ```
 ./
 ├── pico-sdk/
 ├── pico-examples/
 ├── pico-extras/
 ├── pico-playground/
-├── pico.sh
-└── pico_env.sh
+└── pico-mdf/
 ```
 
 First thing you must do is set path in `pico_env.sh` script. Next, you should edit `.bashrc` and optional `.zshrc` use commands:

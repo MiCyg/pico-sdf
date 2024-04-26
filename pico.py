@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import shutil
 from pathlib import Path
 import serial.tools.list_ports
 import argparse
@@ -9,11 +10,12 @@ import serial.tools.miniterm
 COLOR='\033[0;35m'
 NC='\033[0m' # No Color
 
-CURRENTPATH = Path.cwd()
-ENV_PATH	= 'PICO_SDK_PATH'
-BUILDDIR	= 'build'
-MOUNTPATH	= '/mnt'
-DEVNAME		= 'RPI-RP2'
+CURRENTPATH 	= Path.cwd()
+PICO_MDF_PATH	= Path(os.environ['PICO_MDF_PATH'])
+PICO_STDPROJ	= PICO_MDF_PATH/'stdproj'
+BUILDDIR		= 'build'
+# MOUNTPATH		= '/mnt'
+# DEVNAME			= 'RPI-RP2'
 
 
 def pico_clear():
@@ -97,8 +99,14 @@ def pico_monitor():
 
 
 
-def pico_create_project():
-	print("function not work yet")
+def pico_create_project(projectName:str):
+	if projectName in os.listdir():
+		print('Folder %s is already exist here.'%projectName)
+		return 
+	
+	shutil.copytree(PICO_STDPROJ, CURRENTPATH/projectName)
+	
+	print(COLOR, 'Project is created.', NC)
 
 
 
@@ -131,7 +139,7 @@ def runflow(clear, build, flash, monitor):
 def config(create_proj):
 	err = 0
 	if create_proj:
-		err = pico_create_project()
+		err = pico_create_project(create_proj[0])
 		if err != 0:
 			return err
 	return err
