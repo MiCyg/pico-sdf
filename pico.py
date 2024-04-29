@@ -35,11 +35,16 @@ def pico_build():
 		print(COLOR, 'Cannot find \'PICO_SDK_PATH\' variable. Try \'get_pico\'', NC)
 		return -1
 
-def pico_swd_flash():
+def pico_swd_flash(args):
+	speed = 5000
+	if len(args) != 0:
+		speed = int(args[0])
+
+
 	print(COLOR, 'Flash program', NC)
 	findFilename = [elfName for elfName in os.listdir(CURRENTPATH/BUILDDIR) if elfName.endswith('.elf')]
 	if len(findFilename) == 1:
-		command = 'sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c \"adapter speed 5000\" -c \"program %s/%s verify reset; exit;\"'%(CURRENTPATH/BUILDDIR, findFilename[0])
+		command = 'sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c \"adapter speed %d\" -c \"program %s/%s verify reset; exit;\"'%(speed, CURRENTPATH/BUILDDIR, findFilename[0])
 		return os.system(command)
 	elif len(findFilename) == 0:
 		print(COLOR, 'Cannot find .elf file', NC)
@@ -123,7 +128,7 @@ def runflow(clear, build, flash, monitor):
 			return err
 	
 	if (flash):
-		err = pico_swd_flash()
+		err = pico_swd_flash(flash)
 		if err != 0:
 			return err
 	
@@ -157,7 +162,8 @@ if __name__ == '__main__':
 	
 	parser.add_argument(
 		"-f", "--flash", help = "flash program", 
-		action='store_true', 
+		# action='store_true', 
+		nargs=1,
 		required=False
 		)
 	
