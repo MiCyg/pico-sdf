@@ -14,7 +14,7 @@ CURRENTPATH 	= Path.cwd()
 PICO_MDF_PATH	= Path(os.environ['PICO_MDF_PATH'])
 PICO_STDPROJ	= PICO_MDF_PATH/'stdproj'
 BUILDDIR		= 'build'
-PICO_VID		= 0x11914
+PICO_VID		= 11914
 # MOUNTPATH		= '/mnt'
 # DEVNAME			= 'RPI-RP2'
 
@@ -58,15 +58,15 @@ def pico_swd_flash(args):
 def pico_monitor():
 	# print(COLOR, 'pico monitor.', NC)
 	
-	ports = serial.tools.list_ports.comports()
+	ports_info= serial.tools.list_ports.comports()
 
 	devicePath = None
 
 	findDevices = 0
-	for port in sorted(ports):
-		if port.vid == PICO_VID:
+	for port_info in sorted(ports_info):
+		if port_info.vid == PICO_VID:
 			findDevices+=1
-			devicePath = port
+			devicePath = port_info.device
 	
 	# must choose port if is more than one picoprobe
 	if findDevices>1:
