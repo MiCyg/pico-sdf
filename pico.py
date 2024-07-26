@@ -11,8 +11,8 @@ COLOR='\033[0;35m'
 NC='\033[0m' # No Color
 
 CURRENTPATH 	= Path.cwd()
-PICO_MDF_PATH	= Path(os.environ['PICO_MDF_PATH'])
-PICO_STDPROJ	= PICO_MDF_PATH/'stdproj'
+PICO_SDF_PATH	= Path(os.environ['PICO_SDF_PATH'])
+PICO_STDPROJ	= PICO_SDF_PATH/'stdproj'
 BUILDDIR		= 'build'
 PICO_VID		= 11914
 # MOUNTPATH		= '/mnt'

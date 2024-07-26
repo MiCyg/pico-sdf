@@ -9,7 +9,7 @@ Project should be in this same folder as pico-sdk, example tree:
 ├── pico-examples/
 ├── pico-extras/
 ├── pico-playground/
-└── pico-mdf/
+└── pico-sdf/
 ```
 
 First thing you must do is set path in `pico_env.sh` script. Next, you should edit `.bashrc` and optional `.zshrc` use commands:
