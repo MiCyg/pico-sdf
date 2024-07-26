@@ -1,4 +1,4 @@
-# Pico Small Framework
+# Pico Small Development Framework
 Raspberry pi pico framework for build, programming and monitor.
 
 # Configure
